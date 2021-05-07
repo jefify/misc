@@ -1,0 +1,36 @@
+<html>
+<head>
+  <style type="text/css">
+  </style>
+
+  <script>
+
+    var timer;
+
+    function print_timer(){
+      console.log(timer);
+      setTimeout(function(){print_timer();}, 500);
+      //document.getElementById("o").innerHTML += "<br>";
+    }
+
+    window.onload = function(){
+      print_timer();
+
+      timer = setTimeout(function(){
+        document.getElementById("t").innerHTML = "Timer triggered!";
+        timer = undefined;
+      }, 3000);
+    };
+  </script>
+</head>
+<body>
+<p>
+<div id="t">miolo</div>
+<div id="o">miolo</div>
+<p>
+<hr>
+References:<br>
+1) <a href="https://timeago.org">timeago.org</a><br>
+2) Github <a href="https://github.com/hustcc/timeago.js">timeago.js</a>
+</body>
+</html>

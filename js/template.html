@@ -1,0 +1,37 @@
+<html>
+<head>
+  <style type="text/css">
+    .class1 {
+      font-family: Monospace;
+      background-color: yellow;
+      word-wrap: break-word;
+    }
+  </style>
+
+  <script src="https://timeago.org/timeago.min.js"></script>
+  <script>
+    var a, b;
+
+    function f(){
+      document.getElementById("d").innerHTML = "a = " + a;
+      document.getElementById("d").innerHTML += "<br>b = " + b;
+      document.getElementById("d").innerHTML += "<br>a + b = " + (a+b);
+    }
+
+    window.onload = function(){
+     a = 3;
+     b = 4;
+     f();
+    };
+  </script>
+</head>
+<body>
+<p>
+<div id="d">miolo</div>
+<p>
+<hr>
+References:<br>
+1) <a href="https://timeago.org">timeago.org</a><br>
+2) Github <a href="https://github.com/hustcc/timeago.js">timeago.js</a>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<html>
+<head>
+  <link rel="shortcut icon" type="image/x-icon" href="../media/keepalive.png?">
+  <title>Keep-alive</title>
+  <style type="text/css">
+  </style>
+
+  <script>
+
+    var t;
+    var val_from, val_to;
+    var count=0;
+
+    function getUrlParm(name, url) {
+      // https://javascript.info/regexp-methods
+      if (typeof url == 'undefined') url = window.location.href;
+      var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(url);
+      if (results==null){
+         return null;
+      } else {
+         return decodeURI(results[1]) || 0;
+      }
+    }
+
+    // https://stackoverflow.com/a/35970894
+    var getJSON = function(url, callback) {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', url, true);
+      xhr.responseType = 'json';
+      //xhr.setRequestHeader("Connection", "Close");
+      xhr.onload = function() {
+        var status = xhr.status;
+        if (status === 200) {
+          callback(null, xhr.response);
+        } else {
+          callback(status, xhr.response);
+        }
+      };
+      xhr.send();
+    };
+
+    // time
+    function twoDigitTime(i) {
+      return (i < 10) ? "0" + i : i;
+    }
+  
+    function get_time_HMS() {
+      var curtime = new Date(),
+      h = twoDigitTime(curtime.getHours()),
+      m = twoDigitTime(curtime.getMinutes()),
+      s = twoDigitTime(curtime.getSeconds());
+      return (h + ":" + m + ":" + s);
+    }
+
+    function getRandomIntInclusive(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function start_timeclock() {
+      var content_text = "";
+      var i = getRandomIntInclusive(val_from, val_to);
+
+      count++;
+      content_text += get_time_HMS() + " (+" + i + "s)"+ " - " + count ;
+
+      getJSON('https://jefify.github.io/data/misc/empty.json?t=' + (new Date()).getTime(),
+      function(err, data) {
+        if (err !== null) {
+          console.log('getJSON(): something went wrong: ' + err);
+          document.getElementById("content").innerHTML  = "<span style='background-color: OrangeRed;'>" + content_text + " (ERROR!)</span>";
+        } else {
+          //console.log(data);
+          document.getElementById("content").innerHTML = "<span style='background-color: PaleGreen;'>" + content_text + " OK</span>";
+        }
+      });
+
+      t = setTimeout(function () { start_timeclock() }, i*1000);
+    }
+
+    window.onload = function(){
+      val_from = getUrlParm("f") || 4;
+      val_to = getUrlParm("t") || 8;
+
+      start_timeclock();
+      console.log("All initialized, interval between " + val_from + " + " + val_to);
+
+    };
+  </script>
+</head>
+<body>
+<p>
+<div style="font-family: monospace;" id="content">miolo</div>
+</body>
+</html>

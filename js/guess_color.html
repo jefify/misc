@@ -1,0 +1,52 @@
+<html>
+<head>
+  <style type="text/css">
+    .class1 {
+      font-family: Monospace;
+      background-color: yellow;
+      word-wrap: break-word;
+    }
+  </style>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/md5.js"></script>
+  <script>
+    var a, b;
+
+    function f(){
+      // https://stackoverflow.com/a/57805
+      // hexString = yourNumber.toString(16);
+      // yourNumber = parseInt(hexString, 16);
+      var md5 = CryptoJS.MD5(document.getElementById("i").value);
+      var d1 = parseInt(md5.toString().substring(0,6), 16);
+      var d2 = parseInt("5f5f5f", 16);
+      var r = (d1 & d2);
+      var strfg = "#" + ("000000" + r.toString(16)).substr(-6);
+      var strbg = "#" + (parseInt("ffffff", 16) - r).toString(16);
+      var html = ""
+      html = "md5 = " + md5 + "<br>";
+      html+= "pre6 = " + d1.toString(16) + "<br>";
+      html+= "% " + d2.toString(16) + "<br>"
+      html+= "= " + r.toString(16) + "<br>";
+      html+= "=> fg " + strfg + " bg " + strbg;
+      document.getElementById("d").innerHTML = html;
+      document.getElementById("d").style.color = strfg;
+      document.getElementById("d").style.backgroundColor = strbg;
+    }
+
+    window.onload = function(){
+     a = 3;
+     b = 4;
+     f();
+    };
+  </script>
+</head>
+<body>
+<p>
+<input id="i" onkeypress="javascript:f();" /><div id="d"></div>
+<p>
+<hr>
+References:<br>
+1) <a href="https://timeago.org">timeago.org</a><br>
+2) Github <a href="https://github.com/hustcc/timeago.js">timeago.js</a>
+</body>
+</html>

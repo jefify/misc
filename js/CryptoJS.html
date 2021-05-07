@@ -1,0 +1,74 @@
+<html>
+<head>
+<style type="text/css">
+.outtxt {
+  font-family: Monospace;
+  background-color: yellow;
+  word-wrap: break-word;
+  width: 50%;
+}
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+<script>
+  function encrypt() {
+    document.getElementById("dsttxt").value = CryptoJS.AES.encrypt(document.getElementById("srcmsg").value, document.getElementById("p").value);
+  }
+
+  function decrypt() {
+    var o;
+    try {
+      var t = CryptoJS.AES.decrypt(document.getElementById("dsttxt").value, document.getElementById("p").value);
+      // https://stackoverflow.com/a/9156219
+      if (t == "") throw new Error("t is empty!");
+      document.getElementById("srcmsg").value = t.toString(CryptoJS.enc.Utf8);
+      o =  't: "' + t + '"';
+    } catch (e) {
+      o = e.name + ": " + e.message;
+    }
+    document.getElementById("out").innerHTML = o;
+  }
+
+  function getUrlParm(name) {
+    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if (results==null) {
+       return null;
+    } else {
+       return decodeURI(results[1]) || 0;
+    }
+  }
+
+  window.onload = function(){
+    document.getElementById("p").value = getUrlParm("p") || "Secret Passphrase";
+    document.getElementById("srcmsg").value = "My Message";
+    encrypt();
+  };
+</script>
+</head>
+<body>
+<p>
+<form action="javascript:void(0)">
+<div>
+<label for="p"><b><u>P</u>assphrase:</b></label> <input type="text" name="p" id="p" accesskey="p">
+</div>
+<div style="display:inline-block; width: 45%;">
+<label for="srcmsg"><b><u>S</u>ource Message:</b></label><br>
+<textarea name="srcmsg" id="srcmsg" style="width:100%;" rows=10 accesskey="s"></textarea>
+</div><div style="display:inline-block; width: 10%; text-align:center; vertical-align:top;">
+<button onclick="javascript:encrypt()" accesskey="g"><u>G</u>o! &gt;&gt;</button><br><br>
+<button onclick="javascript:decrypt()" accesskey="b"><u>B</u>ack &lt;&lt;</button><br><br>
+</div><div style="display:inline-block; width: 45%;">
+<label for="dsttxt"><b>E<u>n</u>crypted:</b></label><br>
+<textarea name="dsttxt" id="dsttxt" style="width:100%;" rows=10 accesskey="n"></textarea>
+</div>
+</form>
+<div style="display:flex;">
+<div style="vertical-align:top;">[Status]</div><div id="out" class="outtxt" style="flex-grow:1; min-width:60%;"></div>
+</div>
+<p><br>
+References:<br>
+1) Stackoverflow <a href="https://stackoverflow.com/a/26317465">answer</a><br>
+</body>
+
+
+</html>

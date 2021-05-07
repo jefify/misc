@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"><html><head><title></title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="keywords" content=""><meta http-equiv="pragma" content="no-cache"><meta http-equiv="Expires" content="Tue, 20 Aug 1998 14:25:27 GMT"><script language="JavaScript" src="src-chinese_calendar/chinese_calendar.js"></script>
+<style>
+.todayColor {
+	background-color: #a0c0c0;
+	width: 60;
+	height: 36;
+	color: #990000
+}
+.table_border{border:1px solid #fff;}
+</style>
+</head><body class="myBody" onmousemove="mEvn(event)" style="POSITION: relative" bottommargin="0" leftmargin="5"
+		topmargin="5" onLoad="initialize()" rightmargin="0" onUnload="terminate()" ms_positioning="FlowLayout"><script language="Javascript">
+<!--
+	var agent = navigator.userAgent;
+	var navVer = 0;
+	var navName = '';
+ 
+	if(agent.indexOf("MSIE") != -1) {
+		navVer = agent.replace(/^.+MSIE ([0-9\.]+).*$/i, "$1");
+		navName = 'IE';
+	}
+	if(agent.indexOf("Firefox") != -1) {
+		navVer = agent.replace(/^.+Firefox\/([0-9\.]+).*$/i, "$1");
+		navName = 'Firefox';
+	}
+	if(agent.indexOf("Gecko") != -1) {
+		navVer = agent.replace(/^.*Mozilla\/([0-9\.]+).*$/i, "$1");
+		navName = 'Mozilla';
+	}
+	if(navVer == 0 || (navName=='IE'&&navVer<4) ) {
+	document.write("<h1>你的瀏覽器無法執行此程式。</h1>此程式需在 IE 4.0 或 Firefox 1.0 以後的版本才能執行!!")
+	document.close;
+	}
+//-->
+		</script>
+<div id="detail" style="Z-INDEX: 3; FILTER: shadow(color=#333333,direction=135); WIDTH: 140px; POSITION: absolute; HEIGHT: 120px"></div><table class="table_border" width="560" align="center" cellspacing="0" cellpadding="0"><tr><td><table width="544" align="center" border="0"><tbody><tr><form name="CLD" onSubmit="return false;"><td align="center"><div style="Z-INDEX: -1; POSITION: absolute; TOP: -60px"><font id="YMBG" style="FONT-SIZE: 100pt; COLOR: #f0f0f0; FONT-FAMILY: 'Arial Black'">&nbsp;0000<br>&nbsp;JUN</font> </div><table width="504" border="0"><tbody><tr><td align="center" bgcolor="#666699" colspan="7"><font
+                  style="FONT-SIZE: 11pt;
+                color: #ffcc99;">西元 <select style="FONT-SIZE: 9pt" onChange="changeCld()" name="SY"><script language="Javascript"><!-- 
+          for(i=1900;i<2101;i++) document.write('<option>'+i)
+          //--></script>
+</select> 年 <select style="FONT-SIZE: 9pt" onChange="changeCld()" name="SM"><script language="JavaScript"><!-- 
+          for(i=1;i<13;i++) document.write('<option>'+i)
+          //--></script>
+</select> 月&nbsp;&nbsp;</font><font id="GZ" 
+                  style="FONT-SIZE: 11pt;
+                color: #ffcc99;"></font> <br></td></tr><tr align="center" bgcolor="#e0e0e0"><td width="72">日</td><td width="72">一</td><td width="72">二</td><td width="72">三</td><td width="72">四</td><td width="72">五</td><td width="72">六</td></tr><tr bgcolor="#666666"><script language="JavaScript"><!--
+          var gNum, color1, color2;
+
+          
+          switch (conWeekend) {
+          case 1:
+             color1 = 'black';
+             color2 = color1;
+             break;
+          case 2:
+             color1 = 'green';
+             color2 = color1;
+             break;
+          case 3:
+             color1 = 'navy';
+             color2 = color1;
+             break;
+          default :
+             color1 = 'green';
+             color2 = 'red';
+          }
+
+          for(i=0;i<6;i++) {
+             document.write('<tr align=center>')
+             for(j=0;j<7;j++) {
+                gNum = i*7+j
+                document.write('<td id="GD' + gNum +'" onMouseOver="mOvr(' + gNum +')" onMouseOut="mOut()"><font id="SD' + gNum +'" size=5 face="Arial Black"')
+                if(j == 0) document.write(' color=red')
+                if(j == 6) {
+                   if(i%2==1) document.write(' color='+color2)
+                      else document.write(' color='+color1)
+                }
+                document.write(' TITLE=""> </font><br><font id="LD' + gNum + '" size=2 style="font-size:9pt"> </font></td>')
+             }
+             document.write('</tr>')
+          }
+          //--></script>
+</tbody></table></td><td valign="top" align="center" width="40"><table cellpadding="0" cellspacing="0" border="0" valign="top" align="center"><tr><td  height="70px">&nbsp;</td></tr><tr><td valign="top" align="center">年</td></tr><tr><td><button style="FONT-SIZE: 9pt" onClick="pushBtm('YU')" type="button">▲</button></td></tr><tr><td><button style="FONT-SIZE: 9pt" onClick="pushBtm('YD')" type="button">▼</button></td></tr><tr><td  height="10px">&nbsp;</td></tr><tr><td valign="top" align="center">月</td></tr><tr><td><button style="FONT-SIZE: 9pt" onClick="pushBtm('MU')" type="button">▲</button></td></tr><tr><td><button style="FONT-SIZE: 9pt" onClick="pushBtm('MD')" type="button">▼</button></td></tr><tr><td  height="10px">&nbsp;</td></tr><tr><td><button style="FONT-SIZE: 9pt" onClick="pushBtm('')" type="button">今<br>日</button></td></tr></table></td></form></tr></tbody></table></td></tr></table></body></html>

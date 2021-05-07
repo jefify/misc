@@ -1,0 +1,100 @@
+<html>
+<head>
+  <style type="text/css">
+    .outtxt {
+      font-family: Monospace;
+      background-color: yellow;
+      word-wrap: break-word;
+    }
+  </style>
+
+  <script src="https://unpkg.com/rison@0.1.1/js/rison.js"></script>
+  <script src="https://unpkg.com/jsurl@0.1.5/lib/jsurl.js"></script>
+  <script src="https://unpkg.com/qs@6.5.1/dist/qs.js"></script>
+  <script src="https://unpkg.com/urlon@3.0.1/dist/urlon.umd.js"></script>
+  <script src="https://cdn.rawgit.com/AKhotoolev/QSJS/master/dest/querystring-json.js"></script>
+  <script>
+    var data;
+
+    function generate(){
+      data = JSON.parse(document.getElementById('jsonobj').value);
+      document.getElementById('json').innerText = JSON.stringify(data);
+      document.getElementById('qs').innerText = Qs.stringify(data, {encode: false});
+      document.getElementById('querystring-json').innerText = QSJS().encode(data);
+      document.getElementById('rison').innerText = rison.encode(data);
+      document.getElementById('o-rison').innerText = rison.encode_object(data);
+      document.getElementById('jsurl').innerText = JSURL.stringify(data);
+      document.getElementById('urlon').innerText = urlon.stringify(data);
+    };
+
+    // https://stackoverflow.com/a/26324037
+    function prettifyjson(){
+      data = JSON.parse(document.getElementById('jsonobj').value);
+      document.getElementById('jsonobj').value = JSON.stringify(data, undefined, 4);
+    };
+
+    window.onload = function(){
+      data = {
+        "_id": "5973782bdb9a930533b05cb2",
+        "isActive": true,
+        "balance": "$1,446.35",
+        "age": 32,
+        "name": "Logan Keller",
+        "email": "logankeller@artiq.com",
+        "phone": "+1 (952) 533-2258",
+        "friends": [{
+            "id": 0,
+            "name": "Colon Salazar"
+          },
+          {
+            "id": 1,
+            "name": "French Mcneil"
+          },
+          {
+            "id": 2,
+            "name": "Carol Martin"
+          }
+        ],
+        "favoriteFruit": "banana"
+      };
+      document.getElementById('jsonobj').value = JSON.stringify(data, undefined, 4);
+      generate();
+    };
+  </script>
+</head>
+<body>
+<div style="width: 30%; display: inline-block; vertical-align: top;">
+<form>
+  <textarea name="jsonobj" id="jsonobj" style="width:100%; height:80%; font-size:6px; font-family:monospace;"></textarea><br>
+  <input type="button" value="Prettify Json" onclick="javascript:prettifyjson()">
+  <input type="button" value="Go!" onclick="javascript:generate()">
+</form>
+References:<br>
+1) Stackoverflow <a href="https://stackoverflow.com/a/50012536">answer</a><br>
+2) JSfiddle <a href="https://jsfiddle.net/1g5xoc8p/3/">example</a>
+</div><div style="width: 1%; display: inline-block;"></div><div style="width: 69%; display: inline-block;">
+<p>
+JSON:<br>
+<div id="json" class="outtxt"></div>
+<p>
+QS:<br>
+<div id="qs" class="outtxt"></div>
+<p>
+QS-JSON:<br>
+<div id="querystring-json" class="outtxt"></div>
+<p>
+Rison:<br>
+<div id="rison" class="outtxt"></div>
+<p>
+O-Rison:<br>
+<div id="o-rison" class="outtxt"></div>
+<p>
+JSURL:<br>
+<div id="jsurl" class="outtxt"></div>
+<p>
+URLON:<br>
+<div id="urlon" class="outtxt"></div>
+<p>
+</div>
+</body>
+</html>
