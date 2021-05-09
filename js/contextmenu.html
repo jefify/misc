@@ -35,8 +35,20 @@
     // Trigger action when the contexmenu is about to be shown
 
     var selected_menu_area = undefined;
+
+    function func_action01(arg01) {
+      alert("Triggered first action on " + arg01);
+    }
+
+    function func_action02(arg01) {
+      alert("Triggered second action on " + arg01);
+    }
    
-    window.onload = function(){
+    function func_action03(arg01) {
+      alert("Triggered third action on " + arg01);
+    }
+   
+     window.onload = function(){
   
       $(".menu-area").bind("contextmenu", function (event) {
       
@@ -78,9 +90,9 @@
         switch($(this).attr("data-action")) {
       
           // A case for each action. Your actions here
-          case "first": alert("first"); break;
-          case "second": alert("second"); break;
-          case "third": alert("third"); break;
+          case "action01": func_action01(selected_menu_area.attr("data-item")); break;
+          case "action02": func_action02(selected_menu_area.attr("data-item")); break;
+          case "action03": func_action03(selected_menu_area.attr("data-item")); break;
         }
       
         // Hide it AFTER the action was triggered
@@ -96,9 +108,9 @@
 <!-- HTML -->
 
 <ul class='custom-menu'>
-  <li data-action="first">First thing</li>
-  <li data-action="second">Second thing</li>
-  <li data-action="third">Third thing</li>
+  <li data-action="action01">First thing</li>
+  <li data-action="action02">Second thing</li>
+  <li data-action="action03">Third thing</li>
 </ul>
 
 <!-- Not needed, only for making it clickable on StackOverflow -->
