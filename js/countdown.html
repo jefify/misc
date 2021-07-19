@@ -1,0 +1,52 @@
+<!-- Display the countdown timer in an element -->
+<p id="countDownDate"></p>
+<p id="demo"></p>
+
+<script>
+
+function getUrlParm(name, url) {
+  // https://javascript.info/regexp-methods
+  if (typeof url == 'undefined') url = window.location.href;
+  var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(url);
+  if (results==null){
+     return null;
+  } else {
+     return decodeURI(results[1]) || 0;
+  }
+}
+
+// Set the date we're counting down to
+var countDownDate = new Date(getUrlParm("t") || (new Date().getTime())+3600000 ).getTime();
+
+document.getElementById("countDownDate").innerHTML = getUrlParm("t");
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+
+  var strTime = "EXPIRED";
+
+  // If the count down is finished, write some text
+  if (distance > 0) {
+    // Time calculations for days, hours, minutes and seconds
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  
+    // Display the result in the element with id="demo"
+    strTime = (days?days+"d ":"")
+      + (hours||days?hours+"h ":"")
+      + (minutes||hours||days?minutes+"m ":"")
+      + (seconds<10?"0":"") + seconds+"s";
+  }
+
+  document.getElementById("demo").innerHTML = strTime;
+  document.title = strTime;
+}, 1000);
+</script>
