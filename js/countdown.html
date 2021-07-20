@@ -1,6 +1,7 @@
 <!-- Display the countdown timer in an element -->
-<p id="countDownDate"></p>
-<p id="demo"></p>
+<p id="info"></p>
+<p id="refTime"></p>
+<p id="countDown"></p>
 
 <script>
 
@@ -16,9 +17,12 @@ function getUrlParm(name, url) {
 }
 
 // Set the date we're counting down to
-var countDownDate = new Date(getUrlParm("t") || (new Date().getTime())+3600000 ).getTime();
+var refTime = getUrlParm("t");
+var info = getUrlParm("i");
 
-document.getElementById("countDownDate").innerHTML = getUrlParm("t");
+var countDownDate = new Date(refTime || (new Date().getTime())+3600000 ).getTime();
+document.getElementById("info").innerHTML = info;  
+document.getElementById("refTime").innerHTML = refTime;
 
 // Update the count down every 1 second
 var x = setInterval(function() {
@@ -46,7 +50,7 @@ var x = setInterval(function() {
       + (seconds<10?"0":"") + seconds+"s";
   }
 
-  document.getElementById("demo").innerHTML = strTime;
-  document.title = strTime;
+  document.getElementById("countDown").innerHTML = strTime;
+  document.title = strTime + (info?" ("+info+")":"");
 }, 1000);
 </script>
