@@ -1,56 +1,78 @@
-<!-- Display the countdown timer in an element -->
-<p id="info"></p>
-<p id="refTime"></p>
-<p id="countDown"></p>
+<html>
+<head>
+  <link rel="shortcut icon" type="image/x-icon" href="/media/countdown.png">
+  <title>Countdown Timer</title>
 
-<script>
+  <style type="text/css">
+  </style>
 
-function getUrlParm(name, url) {
-  // https://javascript.info/regexp-methods
-  if (typeof url == 'undefined') url = window.location.href;
-  var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(url);
-  if (results==null){
-     return null;
-  } else {
-     return decodeURI(results[1]) || 0;
-  }
-}
+  <script>
+    var refTime;
+    var info;
+    var countDownDate;
+    var refreshIntervalId;
 
-// Set the date we're counting down to
-var refTime = getUrlParm("t");
-var info = getUrlParm("i");
+    function getUrlParm(name, url) {
+      // https://javascript.info/regexp-methods
+      if (typeof url == 'undefined') url = window.location.href;
+      var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(url);
+      if (results==null){
+         return null;
+      } else {
+         return decodeURI(results[1]) || 0;
+      }
+    }
 
-var countDownDate = new Date(refTime || (new Date().getTime())+3600000 ).getTime();
-document.getElementById("info").innerHTML = info;  
-document.getElementById("refTime").innerHTML = refTime;
+    window.onload = function(){
 
-// Update the count down every 1 second
-var x = setInterval(function() {
+      // Set the date we're counting down to
+      refTime = getUrlParm("t");
+      info = getUrlParm("i");
 
-  // Get today's date and time
-  var now = new Date().getTime();
+      countDownDate = new Date(refTime || (new Date().getTime())+3600000 ).getTime();
+      document.getElementById("info").innerHTML = info;  
+      document.getElementById("refTime").innerHTML = refTime;
 
-  // Find the distance between now and the count down date
-  var distance = countDownDate - now;
+      // Update the count down every 1 second
+      refreshIntervalId = setInterval(function() {
 
-  var strTime = "EXPIRED";
+        // Get today's date and time
+        var now = new Date().getTime();
 
-  // If the count down is finished, write some text
-  if (distance > 0) {
-    // Time calculations for days, hours, minutes and seconds
-    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-  
-    // Display the result in the element with id="demo"
-    strTime = (days?days+"d ":"")
-      + (hours||days?hours+"h ":"")
-      + (minutes||hours||days?minutes+"m ":"")
-      + (seconds<10?"0":"") + seconds+"s";
-  }
+        // Find the distance between now and the count down date
+        var distance = countDownDate - now;
 
-  document.getElementById("countDown").innerHTML = strTime;
-  document.title = strTime + (info?" ("+info+")":"");
-}, 1000);
-</script>
+        var strTime = "EXPIRED";
+
+        // If the count down is finished, write some text
+        if (distance > 0) {
+          // Time calculations for days, hours, minutes and seconds
+          var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+          // Display the result in the element with id="demo"
+          strTime = (days?days+"d ":"")
+            + (hours||days?hours+"h ":"")
+            + (minutes||hours||days?minutes+"m ":"")
+            + (seconds<10?"0":"") + seconds+"s";
+        } else {
+          clearInterval(refreshIntervalId);
+        }
+
+        document.getElementById("countDown").innerHTML = strTime;
+        document.title = strTime + (info?" ("+info+")":"");
+        console.log((new Date().getTime()) + ": called for " + strTime)
+      }, 1000);
+
+    };
+  </script>
+</head>
+<body>
+<p>
+<div style="font-family: monospace;" id="info"></div>
+<div style="font-family: monospace;" id="refTime"></div>
+<div style="font-family: monospace;" id="countDown"></div>
+</body>
+</html>
