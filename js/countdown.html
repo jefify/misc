@@ -1,7 +1,7 @@
 <html>
 <head>
-  <link rel="shortcut icon" type="image/x-icon" href="../media/countdown.png">
-  <title>Countdown Timer</title>
+  <link rel="shortcut icon" type="image/x-icon" href="/media/countdown.png">
+  <title>Keep-alive</title>
 
   <style type="text/css">
   </style>
@@ -21,6 +21,16 @@
       } else {
          return decodeURI(results[1]) || 0;
       }
+    }
+
+    function replaceFavicon(newicon) {
+      var link = document.querySelector("link[rel~='icon']");
+      if (!link) {
+        link = document.createElement('link');
+        link.rel = 'icon';
+        document.getElementsByTagName('head')[0].appendChild(link);
+      }
+      link.href = newicon;
     }
 
     window.onload = function(){
@@ -59,6 +69,7 @@
             + (seconds<10?"0":"") + seconds+"s";
         } else {
           clearInterval(refreshIntervalId);
+          replaceFavicon("../media/countdown_timeout.png");
         }
 
         document.getElementById("countDown").innerHTML = strTime;
